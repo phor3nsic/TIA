@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      width: 320px;
+      background: #0f0f1a;
+      color: #e0e0e0;
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header img {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+    }
+
+    .header h1 {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .header .badge {
+      font-size: 10px;
+      background: #6d28d9;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    label {
+      display: block;
+      color: #888;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+      margin-top: 12px;
+    }
+
+    label:first-of-type {
+      margin-top: 0;
+    }
+
+    select,
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      background: #1e1e2e;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #e0e0e0;
+      padding: 7px 10px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: #6d28d9;
+    }
+
+    select option {
+      background: #1e1e2e;
+    }
+
+    .section {
+      background: #1a1a2e;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      color: #6d6d8a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #555;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .hint a {
+      color: #7c6fcd;
+      text-decoration: none;
+    }
+
+    .hint a:hover {
+      text-decoration: underline;
+    }
+
+    .free-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: #14532d;
+      color: #86efac;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 4px;
+    }
+
+    .save-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 9px;
+      background: #6d28d9;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .save-btn:hover {
+      background: #7c3aed;
+    }
+
+    .save-btn:active {
+      background: #5b21b6;
+    }
+
+    .status {
+      text-align: center;
+      font-size: 12px;
+      color: #86efac;
+      margin-top: 8px;
+      height: 16px;
+    }
+
+    .features {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feature-tag {
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      padding: 3px 8px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <img src="icons/icon32.png" alt="Text Improver AI" />
+    <h1>Text Improver AI</h1>
+    <span class="badge">v1.2</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">AI Provider</div>
+    <select id="provider">
+      <option value="groq">Groq — Llama 3.1 (Free)</option>
+      <option value="openrouter">OpenRouter (free & paid models)</option>
+      <option value="ollama">Ollama (local, 100% free)</option>
+      <option value="openai">OpenAI (GPT-4o Mini)</option>
+      <option value="anthropic">Anthropic (Claude Haiku)</option>
+    </select>
+
+    <!-- Groq -->
+    <div id="section-groq">
+      <label>Groq API Key</label>
+      <input type="password" id="apiKey-groq" placeholder="gsk_..." />
+      <p class="hint">
+        Free — 14,400 req/day. Get your key at
+        <a href="https://console.groq.com" target="_blank">console.groq.com</a>
+      </p>
+    </div>
+
+    <!-- OpenRouter -->
+    <div id="section-openrouter" class="hidden">
+      <label>OpenRouter API Key</label>
+      <input type="password" id="apiKey-openrouter" placeholder="sk-or-v1-..." />
+      <p class="hint">
+        Get your key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>
+      </p>
+      <label>Model ID <span class="free-badge">free available</span></label>
+      <input type="text" id="openrouterModel" placeholder="e.g. openai/gpt-4o-mini" autocomplete="off" list="or-models-list" />
+      <datalist id="or-models-list">
+        <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+        <option value="openai/gpt-4o">GPT-4o</option>
+        <option value="anthropic/claude-haiku-4-5">Claude Haiku 4.5</option>
+        <option value="anthropic/claude-sonnet-4-5">Claude Sonnet 4.5</option>
+        <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash</option>
+        <option value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</option>
+      </datalist>
+      <p class="hint">
+        Paste the exact model ID. Browse free models at
+        <a href="https://openrouter.ai/models?order=pricing&supported_parameters=free" target="_blank">openrouter.ai/models</a>
+        (filter by "free").
+      </p>
+    </div>
+
+    <!-- Ollama -->
+    <div id="section-ollama" class="hidden">
+      <label>Ollama URL</label>
+      <input type="text" id="ollamaUrl" placeholder="http://localhost:11434" />
+      <label>Model</label>
+      <input type="text" id="ollamaModel" placeholder="llama3" />
+      <p class="hint">
+        Install at <a href="https://ollama.ai" target="_blank">ollama.ai</a> and run
+        <code style="background:#111;padding:1px 5px;border-radius:3px">ollama pull llama3</code>
+      </p>
+    </div>
+
+    <!-- OpenAI -->
+    <div id="section-openai" class="hidden">
+      <label>OpenAI API Key</label>
+      <input type="password" id="apiKey-openai" placeholder="sk-..." />
+      <p class="hint">Uses <strong>gpt-4o-mini</strong> (~$0.00015/1K tokens).</p>
+    </div>
+
+    <!-- Anthropic -->
+    <div id="section-anthropic" class="hidden">
+      <label>Anthropic API Key</label>
+      <input type="password" id="apiKey-anthropic" placeholder="sk-ant-..." />
+      <p class="hint">Uses <strong>claude-haiku</strong> — fast and cost-effective.</p>
+    </div>
+  </div>
+
+  <button class="save-btn" id="save">Save settings</button>
+  <div class="status" id="status"></div>
+
+  <div class="features">
+    <span class="feature-tag">✨ Improve</span>
+    <span class="feature-tag">🌐 Translate EN</span>
+    <span class="feature-tag">📝 Summarize</span>
+    <span class="feature-tag">📋 Clipboard fallback</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
